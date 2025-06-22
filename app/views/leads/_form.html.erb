@@ -1,0 +1,41 @@
+# encoding: utf-8
+
+<%= form_with(model: @lead, local: true) do |form| %>
+  <% if lead.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(lead.errors.count, "error") %> prohibited this lead from being saved:</h2>
+
+      <ul>
+        <% lead.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :title, style: "display: block" %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.label :assignment_id %>
+    <%= form.collection_select :assignment_id, @assignments, :id, :property_id, prompt: "Select Assignment" %>
+  </div>
+
+  <h2>Trackss</h2>
+  <%= form.fields_for :tracks do |track_form| %>
+    <%= render 'track_fields', f: track_form %>
+  <% end %>
+  <%= link_to_add_association 'Add Track', form, :tracks, 'data-association-insertion-method' => 'before', 
+        'data-association-insertion-node' => '.nested-fields' %>
+
+  <div>
+    <%= form.label :admin_id, style: "display: block" %>
+    <%= form.text_field :admin_id %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

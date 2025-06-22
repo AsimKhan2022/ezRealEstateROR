@@ -1,0 +1,33 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  lead: one
+  admin: one
+  title: MyString
+  move_in_time: 2024-06-07 16:13:07
+  move_in_date: 2024-06-07
+  move_out_time: 2024-06-07 16:13:07
+  move_out_date: 2024-06-07
+  rent_price: 9.99
+  commission: 9.99
+  down_payment: 9.99
+  security_deposit: 9.99
+  terms: MyText
+  property_condition: MyText
+  utility_responsibility: MyText
+
+two:
+  lead: two
+  admin: two
+  title: MyString
+  move_in_time: 2024-06-07 16:13:07
+  move_in_date: 2024-06-07
+  move_out_time: 2024-06-07 16:13:07
+  move_out_date: 2024-06-07
+  rent_price: 9.99
+  commission: 9.99
+  down_payment: 9.99
+  security_deposit: 9.99
+  terms: MyText
+  property_condition: MyText
+  utility_responsibility: MyText

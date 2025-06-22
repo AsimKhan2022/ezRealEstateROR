@@ -1,0 +1,140 @@
+# encoding: utf-8
+
+<div id="<%= dom_id property %>">
+  <p>
+    <strong>Name:</strong>
+    <%= property.name %>
+  </p>
+
+  <p>
+    <strong>Address:</strong>
+    <%= property.address %>
+  </p>
+
+  <p>
+    <strong>Street Number:</strong>
+    <%= property.street_number %>
+  </p>
+
+  <p>
+    <strong>City:</strong>
+    <%= property.city %>
+  </p>
+
+  <p>
+    <strong>State:</strong>
+    <%= property.state %>
+  </p>
+
+  <p>
+    <strong>Country:</strong>
+    <%= property.country %>
+  </p>
+
+  <p>
+    <strong>Society:</strong>
+    <%= property.society %>
+  </p>
+
+  <p>
+    <strong>Sector:</strong>
+    <%= property.sector %>
+  </p>
+
+  <p>
+    <strong>Phase:</strong>
+    <%= property.phase %>
+  </p>
+
+  <p>
+    <strong>Property type:</strong>
+    <%= property.property_type %>
+  </p>
+
+  <p>
+    <strong>Listing status:</strong>
+    <%= property.listing_status %>
+  </p>
+
+  <p>
+    <strong>Square footage:</strong>
+    <%= property.square_footage.present? ? property.square_footage : '' %>
+  </p>
+
+  <p>
+    <strong>Footage Unit:</strong>
+    <%= property.footage_unit.present? ? property.footage_unit : '' %>
+  </p>
+
+  <p>
+    <strong>Number of bedrooms:</strong>
+    <%= property.number_of_bedrooms %>
+  </p>
+
+  <p>
+    <strong>Number of bathrooms:</strong>
+    <%= property.number_of_bathrooms %>
+  </p>
+
+  <p>
+    <strong>Year built:</strong>
+    <%= property.year_built %>
+  </p>
+
+  <p>
+    <strong>Asking Price:</strong>
+    <%= property.asking_price.present? ? property.asking_price : '' %>
+  </p>
+
+  <p>
+    <strong>Currency Unit:</strong>
+    <%= property.currency.present? ? property.currency : '' %>
+  </p>
+
+  <p>
+    <strong>Is Verified:</strong>
+    <%= property&.is_verified ? 'Yes' : 'No' %>
+  </p>
+
+  <p>
+    <strong>Investigator:</strong>
+    <%= property.investigator_id %>
+  </p>
+
+  <!-- Include a unique identifier for the map container -->
+  <div class="map-container" id="map-<%= property.id %>" style="width: 800px; height: 400px;"></div>
+
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function() {
+      var mapElement = document.getElementById('map-<%= property.id %>');
+      var latitude = <%= property.latitude || 37.7749 %>;
+      var longitude = <%= property.longitude || -122.4194 %>;
+
+      if (!isNaN(latitude) && !isNaN(longitude)) {
+        // Initialize map if it hasn't been initialized yet
+        if (!mapElement.classList.contains('map-initialized')) {
+          var map = L.map(mapElement).setView([latitude, longitude], 13);
+
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: 'OpenStreetMap'
+          }).addTo(map);
+
+          mapElement.classList.add('map-initialized');
+        }
+
+        // Add marker for this property
+        L.marker([latitude, longitude]).addTo(map)
+          .bindPopup('<%= j property.name %>');
+      } else {
+        mapElement.innerHTML = 'Location not provided for this property.';
+      }
+    });
+  </script>
+
+  <p>
+    <strong>Admin:</strong>
+    <%= property.admin_id %>
+  </p>
+
+</div>

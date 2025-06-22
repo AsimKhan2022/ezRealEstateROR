@@ -1,0 +1,43 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Leads</h1>
+
+<%= link_to "New lead", new_lead_path, class: "btn btn-primary" %>
+
+<div id="leads">
+  <div class="container mt-4">
+    <table class="table table-striped table-bordered">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">Assignment</th>
+          <th scope="col">Title</th>
+          <th scope="col">Admin</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @leads.each do |lead| %>
+        <tr>
+          <td>
+            <%= lead.assignment_id %>
+          </td>
+          <td>
+            <%= lead.title %>
+          </td>
+          <td>
+            <%= lead.admin_id %>
+          </td>
+          <td>
+            <%= link_to "Show", lead_path(lead), class: "btn btn-primary" %>
+          </td>
+          <td>
+            <%= link_to "Edit", edit_lead_path(lead), class: "btn btn-secondary" %>
+          </td>
+          <td>
+            <%= link_to "Delete", lead_path(lead), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,64 @@
+<div id="<%= dom_id user %>">
+  <p>
+    <strong>Name:</strong>
+    <%= user.name %>
+  </p>
+
+  <p>
+    <strong>Address:</strong>
+    <%= user.address %> <%= user.phase %> <%= user.sector %> <%= user.city %> <%= user.country %> <%= user.street_number %> <%= user.state %>
+  </p>
+
+  <p>
+    <strong>Avatar:</strong>
+  </p>
+
+  <div>
+    <% if user.avatar.attached? %>
+        <%= image_tag user.avatar, style: "width: 200px; height: auto;" %>
+    <% else %>
+        <p>No avatar uploaded.</p>
+    <% end %>
+  </div>
+
+  <p>
+    <strong>Username:</strong>
+    <%= user.username %>
+  </p>
+
+  <p>
+    <strong>Email:</strong>
+    <%= user.email %>
+  </p>
+
+  <p>
+    <strong>Secondary Email:</strong>
+    <%= user.secondary_email %>
+  </p>
+
+  <p>
+    <strong>Mobile:</strong>
+    <%= user.mobile %>
+  </p>
+
+  <p>
+    <strong>WhatsApp:</strong>
+    <%= user.whatsapp %>
+  </p>
+
+  <p>
+    <strong>Telephone:</strong>
+    <%= user.telephone %>
+  </p>
+
+  <p>
+    <strong>Role:</strong>
+    <%= user.role %>
+  </p>
+
+  <p>
+    <strong>Admin:</strong>
+    <%= user.admin_id %>
+  </p>
+
+</div>

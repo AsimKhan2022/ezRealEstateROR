@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  admin: one
+  lead: one
+  buyer: one
+  seller: one
+  property_verified: false
+  mortgage_cleared: false
+  sale_date: 2024-06-08
+  sale_time: 2024-06-08 23:18:34
+
+two:
+  admin: two
+  lead: two
+  buyer: two
+  seller: two
+  property_verified: false
+  mortgage_cleared: false
+  sale_date: 2024-06-08
+  sale_time: 2024-06-08 23:18:34

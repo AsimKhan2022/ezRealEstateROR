@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<% if @user %>
+<%= render @user %>
+
+<div>
+  <%= link_to "Edit this user", edit_admin_user_path(@user) %> |
+  <%= link_to "Back to users", admin_users_path %>
+
+  <%= button_to "Destroy this user", admin_user_path(@user), method: :delete %>
+</div>
+<% else %>
+  <p>Users not found. Nothing to show here</p>
+<% end %>

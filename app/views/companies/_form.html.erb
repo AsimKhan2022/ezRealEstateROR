@@ -1,0 +1,157 @@
+<%= form_with(model: @company) do |form| %>
+  <% if company.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(company.errors.count, "error") %> prohibited this company from being saved:</h2>
+
+      <ul>
+        <% company.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :owner, style: "display: block" %>
+    <%= form.text_field :owner %>
+  </div>
+
+  <div>
+    <%= form.label :address, style: "display: block" %>
+    <%= form.text_field :address %>
+  </div>
+
+  <div>
+	<%= form.label :city, style: "display: block" %>
+	<%= form.text_field :city %>
+  </div>
+
+  <div>
+	<%= form.label :state, style: "display: block" %>
+	<%= form.text_field :state %>
+  </div>
+
+  <div>
+    <%= form.label :country, style: "display: block" %>
+    <%= form.text_field :country %>
+  </div>
+
+  <div>
+    <%= form.label :street_number, style: "display: block" %>
+    <%= form.text_field :street_number %>
+  </div>
+
+  <div>
+    <%= form.label :society, style: "display: block" %>
+   <%= form.text_field :society %>
+  </div>
+
+  <div>
+    <%= form.label :sector, style: "display: block" %>
+    <%= form.text_field :sector %>
+  </div>
+
+  <div>
+    <%= form.label :phase, style: "display: block" %>
+    <%= form.text_field :phase %>
+  </div>
+
+  <div>
+    <%= form.label :email, style: "display: block" %>
+    <%= form.text_field :email %>
+  </div>
+
+  <div>
+    <%= form.label :secondary_email, style: "display: block" %>
+    <%= form.text_field :secondary_email %>
+  </div>
+
+  <div>
+    <%= form.label :mobile, style: "display: block" %>
+    <%= form.text_field :mobile %>
+  </div>
+
+  <div>
+    <%= form.label :fax, style: "display: block" %>
+    <%= form.text_field :fax %>
+  </div>
+
+  <div>
+    <%= form.label :whatsapp, style: "display: block" %>
+    <%= form.text_field :whatsapp %>
+  </div>
+
+  <div>
+    <%= form.label :avatar, style: "display: block" %>
+    <% if @company.avatar.attached? %>
+        <%= image_tag @company.avatar, style: "width: 200px; height: auto; display: block;" %>
+        <p>Current Avatar</p>
+    <% end %>
+    <%= form.file_field :avatar %>
+  </div>
+
+  <div>
+  <%= form.label :documents, style: "display: block" %>
+  <% if @company.documents.attached? %>
+    <p>Current Documents:</p>
+    <ul>
+      <% @company.documents.each do |document| %>
+        <li>
+          <%= link_to document.filename, document %>
+          <%= check_box_tag "company[document_ids_to_remove][]", document.id, false, id: "remove_document_#{document.id}" %>
+          <%= label_tag "remove_document_#{document.id}", "Remove" %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+  <%= form.file_field :documents, multiple: true %> <!-- Allows file uploads -->
+</div>
+
+<div>
+  <%= form.label :license_certificates, style: "display: block" %>
+  <% if @company.license_certificates.attached? %>
+    <p>Current License Certificates:</p>
+    <ul>
+      <% @company.license_certificates.each do |certificate| %>
+        <li>
+          <%= link_to certificate.filename, certificate %>
+          <%= check_box_tag "company[license_certificate_ids_to_remove][]", certificate.id, false, id: "remove_license_certificate_#{certificate.id}" %>
+          <%= label_tag "remove_license_certificate_#{certificate.id}", "Remove" %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+  <%= form.file_field :license_certificates, multiple: true %> <!-- Allows file uploads -->
+</div>
+
+<div>
+  <%= form.label :tax_certificates, style: "display: block" %>
+  <% if @company.tax_certificates.attached? %>
+    <p>Current Tax Certificates:</p>
+    <ul>
+      <% @company.tax_certificates.each do |certificate| %>
+        <li>
+          <%= link_to certificate.filename, certificate %>
+          <%= check_box_tag "company[tax_certificate_ids_to_remove][]", certificate.id, false, id: "remove_tax_certificate_#{certificate.id}" %>
+          <%= label_tag "remove_tax_certificate_#{certificate.id}", "Remove" %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+  <%= form.file_field :tax_certificates, multiple: true %> <!-- Allows file uploads -->
+</div>
+
+  <div>
+    <%= form.label :admin_id, style: "display: block" %>
+    <%= form.text_field :admin_id %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

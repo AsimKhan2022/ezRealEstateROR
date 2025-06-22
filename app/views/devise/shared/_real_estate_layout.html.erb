@@ -1,0 +1,11 @@
+<!-- app/views/shared/_real_estate_layout.html.erb -->
+<div class="container text-center px-4 overflow-hidden">
+  <div class="row align-items-center gx-5">
+    <div class="col p-3">
+      <%= render 'devise/shared/real_estate_image' %>
+    </div>
+    <div class="col p-3">
+      <%= yield %> <!-- This allows you to inject content -->
+    </div>
+  </div>
+</div>

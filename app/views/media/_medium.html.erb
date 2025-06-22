@@ -1,0 +1,53 @@
+<div id="<%= dom_id medium %>">
+  
+  <p>
+    <strong>Repeater Images:</strong>
+  </p>
+
+  <div>
+  <% if medium.repeater_images.attached? %>
+    <% medium.repeater_images.each do |image| %>
+      <%= image_tag image, style: "width: 200px; height: auto;" %>
+    <% end %>
+  <% else %>
+    <p>No repeaters uploaded.</p>
+  <% end %>
+</div>
+
+
+  <p>
+    <strong>Banner Images:</strong>
+  </p>
+
+  <div>
+  <% if medium.banner_images.attached? %>
+    <% medium.banner_images.each do |image| %>
+      <%= image_tag image, style: "width: 200px; height: auto; margin-right: 10px;" %>
+    <% end %>
+  <% else %>
+    <p>No banners uploaded.</p>
+  <% end %>
+</div>
+
+
+  <p>
+    <strong>Award Images:</strong>
+  </p>
+
+  <div>
+  <% if medium.award_images.attached? %>
+    <% medium.award_images.each do |image| %>
+      <%= image_tag image, style: "width: 200px; height: auto; margin-right: 10px;" %>
+    <% end %>
+  <% else %>
+    <p>No awards uploaded.</p>
+  <% end %>
+</div>
+
+
+  <p>
+    <strong>Admin:</strong>
+    <%= medium.admin_id %>
+  </p>
+
+</div>

@@ -1,0 +1,74 @@
+<%= form_with(model: @medium) do |form| %>
+  <% if medium.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(medium.errors.count, "error") %> prohibited this medium from being saved:</h2>
+
+      <ul>
+        <% medium.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+  <%= form.label :repeater_images, style: "display: block" %>
+  <% if @medium.repeater_images.attached? %>
+    <p>Repeater Images:</p>
+    <ul>
+      <% @medium.repeater_images.each do |repeater| %>
+        <li>
+            <%= image_tag repeater, style: "width: 200px; height: auto;" %>  <!-- Display the image -->
+            <%= check_box_tag "medium[repeater_images_ids_to_remove][]", repeater.id, false, id: "remove_repeater_#{repeater.id}" %>
+            <%= label_tag "remove_repeater_#{repeater.id}", "Remove" %>
+        </li>
+    <% end %>
+    </ul>
+  <% end %>
+  <%= form.file_field :repeater_images, multiple: true %> <!-- Allows file uploads -->
+</div>
+
+  <div>
+  <%= form.label :banner_images, style: "display: block" %>
+  <% if @medium.banner_images.attached? %>
+    <p>Banner Images:</p>
+    <ul>
+      <% @medium.banner_images.each do |banner| %>
+        <li>
+          <%= image_tag banner, style: "width: 200px; height: auto;" %>  <!-- Display the image -->
+          <%= check_box_tag "medium[banner_images_ids_to_remove][]", banner.id, false, id: "remove_banner_#{banner.id}" %>
+          <%= label_tag "remove_banner_#{banner.id}", "Remove" %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+  <%= form.file_field :banner_images, multiple: true %> <!-- Allows file uploads -->
+</div>
+
+  <div>
+  <%= form.label :award_images, style: "display: block" %>
+  <% if @medium.award_images.attached? %>
+    <p>Award Images:</p>
+    <ul>
+      <% @medium.award_images.each do |award| %>
+        <li>
+          <%= image_tag award, style: "width: 200px; height: auto;" %>  <!-- Display the image -->
+          <%= check_box_tag "medium[award_images_ids_to_remove][]", award.id, false, id: "remove_award_#{award.id}" %>
+          <%= label_tag "remove_award_#{award.id}", "Remove" %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+  <%= form.file_field :banner_images, multiple: true %> <!-- Allows file uploads -->
+</div>
+
+  <div>
+    <%= form.label :admin_id, style: "display: block" %>
+    <%= form.text_field :admin_id %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
+

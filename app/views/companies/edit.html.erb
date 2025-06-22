@@ -1,0 +1,11 @@
+<h1>Editing company</h1>
+
+<%= hidden_field_tag :id, @company.id %>
+<%= render "form", company: @company %>
+
+<br>
+
+<div>
+  <%= link_to "Show this company", @company %> |
+  <%= link_to "Back to companies", companies_path %>
+</div>

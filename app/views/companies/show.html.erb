@@ -1,0 +1,22 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @company %>
+
+<div>
+  <%= link_to "Edit this company", edit_company_path(@company) %> |
+  <%= link_to "Back to companies", companies_path %>
+  
+  <!--<p>-->
+    <!--<strong>Documents: </strong>-->
+    <!--<% @company.documents.each do |document| %>-->
+      <!--<%= link_to document.filename, rails_blob_path(document, disposition: "attachment") %>-->
+    <!--<% end %>-->
+  <!--</p>-->
+
+  <!--<p>-->
+    <!--<strong> Avatar: </strong>-->
+    <!--<%= image_tag @company.avatar if @company.avatar.attached? %>-->
+  <!--</p>-->
+
+    <%= button_to "Destroy this company", company_path(@company), method: :delete, data: { confirm: "Are you sure?" } %>
+  </div>

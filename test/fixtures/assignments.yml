@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  admin: one
+  company: one
+  user: one
+  property: one
+
+two:
+  admin: two
+  company: two
+  user: two
+  property: two

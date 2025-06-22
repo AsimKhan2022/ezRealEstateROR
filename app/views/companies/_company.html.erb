@@ -1,0 +1,90 @@
+<div id="<%= dom_id company %>">
+  <p>
+    <strong>Name:</strong>
+    <%= company.name %>
+  </p>
+
+  <p>
+    <strong>Owner:</strong>
+    <%= company.owner %>
+  </p>
+
+  <p>
+    <strong>Address:</strong>
+    <%= company.address %>
+  </p>
+
+  <p>
+    <strong>Email:</strong>
+    <%= company.email %>
+  </p>
+
+  <p>
+    <strong>Avatar:</strong>
+  </p>
+
+  <div>
+    <% if company.avatar.attached? %>
+        <%= image_tag company.avatar, style: "width: 200px; height: auto;" %>
+    <% else %>
+        <p>No avatar uploaded.</p>
+    <% end %>
+  </div>
+
+  <p>
+    <strong>Documents:</strong>
+  </p>
+
+  <div>
+    <% if company.documents.attached? %>
+        <p>Documents:</p>
+        <ul>
+            <% company.documents.each do |document| %>
+                <li><%= link_to document.filename, document %></li>
+            <% end %>
+        </ul>
+    <% else %>
+        <p>No documents uploaded.</p>
+    <% end %>
+  </div>
+
+  <p>
+    <strong>License Certificates:</strong>
+  </p>
+
+  <div>
+    <% if company.license_certificates.attached? %>
+        <p>License Certificates:</p>
+        <ul>
+            <% company.license_certificates.each do |certificate| %>
+                <li><%= link_to certificate.filename, certificate %></li>
+            <% end %>
+        </ul>
+    <% else %>
+        <p>No license certificates uploaded.</p>
+    <% end %>
+  </div>
+  
+  <p>
+    <strong>Tax Certificates:</strong>
+  </p>
+
+  <div>
+    <% if company.tax_certificates.attached? %>
+        <p>Tax Certificates:</p>
+        <ul>
+            <% company.tax_certificates.each do |certificate| %>
+                <li><%= link_to certificate.filename, certificate %></li>
+            <% end %>
+        </ul>
+    <% else %>
+        <p>No tax certificates uploaded.</p>
+    <% end %>
+  </div>
+
+  <p>
+    <strong>Admin:</strong>
+    <%= company.admin_id %>
+  </p>
+
+</div>

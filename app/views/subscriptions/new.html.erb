@@ -1,0 +1,14 @@
+<h1>Select a Subscription Plan</h1>
+
+<%= form_with(model: @subscriptions, url: subscriptions_path, method: :post) do |form| %>
+  <% @policies.each do |policy| %>
+    <div>
+      <%= form.radio_button :subscription_type, policy[:name] %>
+      <%= form.label :subscription_type, "#{policy[:name]} - #{policy[:duration] / 1.year} year(s) - #{policy[:cost]} rupees" %>
+    </div>
+  <% end %>
+  
+  <%= form.hidden_field :admin_id, value: @admin.id %> <!-- Hidden field for admin ID -->
+
+  <%= form.submit 'Subscribe' %>
+<% end %>

@@ -1,0 +1,12 @@
+<h1>Renew Your Subscription</h1>
+
+<%= form_with(model: @subscriptions, url: subscriptions_path, method: :patch) do |form| %>
+<% Admin::POLICIES.each do |policy| %>
+    <div>
+  <%= radio_button_tag :subscription_type, policy[:name] %>
+  <%= label_tag :subscription_type, "#{policy[:name]} - #{policy[:duration] / 1.year} year(s) - #{policy[:cost]} rupees" %>
+  <%= hidden_field_tag :admin_id, @admin.id %>
+</div>
+<% end %>
+  <%= submit_tag 'Renew' %>
+<% end %>

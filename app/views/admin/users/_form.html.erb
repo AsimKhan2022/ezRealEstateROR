@@ -1,0 +1,116 @@
+  
+  <%= form_with(model: @user, url: @user.new_record? ? admin_users_path : admin_user_path(@user), method: @user.new_record? ? :post : :patch) do |form| %>
+  <% if user.errors.any? %>
+    
+    <div style="color: red">
+      <h2><%= pluralize(user.errors.count, "error") %> prohibited this company from being saved:</h2>
+
+      <ul>
+        <% user.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :mobile, style: "display: block" %>
+    <%= form.text_field :mobile %>
+  </div>
+
+  <div>
+    <%= form.label :whatsapp, style: "display: block" %>
+    <%= form.text_field :whatsapp %>
+  </div>
+
+  <div>
+    <%= form.label :address, style: "display: block" %>
+    <%= form.text_field :address %>
+  </div>
+
+  <div>
+    <%= form.label :street_number, style: "display: block" %>
+    <%= form.text_field :street_number %>
+  </div>
+
+  <div>
+    <%= form.label :state, style: "display: block" %>
+    <%= form.text_field :state %>
+  </div>
+
+  <div>
+    <%= form.label :city, style: "display: block" %>
+    <%= form.text_field :city %>
+  </div>
+
+  <div>
+    <%= form.label :country, style: "display: block" %>
+    <%= form.text_field :country %>
+  </div>
+
+  <div>
+    <%= form.label :phase, style: "display: block" %>
+    <%= form.text_field :phase %>
+  </div>
+
+  <div>
+    <%= form.label :sector, style: "display: block" %>
+    <%= form.text_field :sector %>
+  </div>
+
+  <div>
+    <%= form.label :email, style: "display: block" %>
+    <%= form.text_field :email %>
+  </div>
+
+  <div>
+    <%= form.label :secondary_email, style: "display: block" %>
+    <%= form.text_field :secondary_email %>
+  </div>
+
+  <div>
+    <%= form.label :avatar, style: "display: block" %>
+    <% if @user.avatar.attached? %>
+        <%= image_tag @user.avatar, style: "width: 200px; height: auto; display: block;" %>
+        <p>Current Avatar</p>
+    <% end %>
+    <%= form.file_field :avatar %>
+  </div>
+
+  <div>
+    <%= form.label :telephone, style: "display: block" %>
+    <%= form.text_field :telephone %>
+  </div>
+
+  <div>
+    <%= form.label :role, style: "display: block" %>
+    <%= form.select :role, User.roles.keys %>
+  </div>
+
+  <div>
+    <%= form.label :password, style: "display: block" %>
+    <% if @minimum_password_length %>
+    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %><br />
+    <%= form.password_field :password, autocomplete: "new-password" %>
+  </div>
+
+  <div>
+    <%= form.label :password_confirmation, style: "display: block" %><br />
+    <%= form.password_field :password_confirmation, autocomplete: "new-password" %>
+  </div>
+
+  <div>
+    <%= form.label :admin_id, style: "display: block" %>
+    <%= form.text_field :admin_id %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,43 @@
+<div class="nested-fields">
+        <div class="field">
+            <%= f.label :description %>
+            <%= f.text_field :description %>
+        </div>
+
+        <div class="field">
+            <%= f.label :outstanding_amount %>
+            <%= f.text_field :outstanding_amount %>
+        </div>
+
+        <div class="field">
+          <%= f.label :interest_rate %>
+          <%= f.text_field :interest_rate %>
+        </div>
+
+        <div class="field">
+          <%= f.label :actual_cost %>
+          <%= f.number_field :actual_cost, step: 0.01 %>
+        </div>
+
+        <div class="field">
+          <%= f.label :balance %>
+          <%= f.number_field :balance, step: 0.01 %>
+        </div>
+
+        <div class="field">
+            <%= f.label :next_due_date %>
+            <%= f.date_field :next_due_date %>
+        </div>
+
+        <div class="field">
+            <%= f.label :paid_amount %>
+            <%= f.number_field :paid_amount, step: 0.01 %>
+        </div>
+
+        <div class="field">
+            <%= f.label :receipt %>
+            <%= f.file_field :receipt %>
+        </div>
+
+        <%= link_to_remove_association 'Remove Mortgage', f %>
+</div>

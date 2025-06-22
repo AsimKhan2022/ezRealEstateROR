@@ -1,0 +1,32 @@
+{
+  "env": {
+    "browser": true,
+    "es6": false, // Disable ES6 globals
+    "jest": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 5, // Use ES5
+    "sourceType": "script", // Use "script" instead of "module" for ES5
+    "ecmaFeatures": {
+      "jsx": false // Disable JSX parsing
+    }
+  },
+  "extends": [
+    "airbnb-base" // Use airbnb-base (no React)
+  ],
+  "plugins": [],
+  "rules": {
+    "no-var": "off", // Allow `var`
+    "prefer-const": "off", // Allow `let` and `var`
+    "prefer-arrow-callback": "off", // Allow regular functions
+    "no-undef": "off", // Disable undefined variable warnings
+    "no-unexpected-multiline": "off", // Disable unexpected multiline rule
+    "no-arrow-functions": "error", // Disallow arrow functions
+    "strict": "off" // Disable strict mode (optional)
+  },
+  "ignorePatterns": [
+    "dist/",
+    "build/",
+    "*.jsx" // Ignore JSX files
+  ]
+}

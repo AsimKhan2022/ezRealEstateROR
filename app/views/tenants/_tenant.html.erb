@@ -1,0 +1,80 @@
+<div id="<%= dom_id tenant %>">
+  <p>
+    <strong>Lead:</strong>
+    <%= tenant.lead_id %>
+  </p>
+
+  <p>
+    <strong>Admin:</strong>
+    <%= tenant.admin_id %>
+  </p>
+
+  <p>
+    <strong>Title:</strong>
+    <%= tenant.title %>
+  </p>
+
+  <p>
+    <strong>Move in time:</strong>
+    <%= tenant.move_in_time %>
+  </p>
+
+  <p>
+    <strong>Move in date:</strong>
+    <%= tenant.move_in_date %>
+  </p>
+
+  <p>
+    <strong>Move out time:</strong>
+    <%= tenant.move_out_time %>
+  </p>
+
+  <p>
+    <strong>Move out date:</strong>
+    <%= tenant.move_out_date %>
+  </p>
+
+  <p>
+    <strong>Rent price:</strong>
+    <%= tenant.rent_price %>
+  </p>
+
+  <p>
+    <strong>Commission:</strong>
+    <%= tenant.commission %>
+  </p>
+
+  <p>
+    <strong>Down payment:</strong>
+    <%= tenant.down_payment %>
+  </p>
+
+  <p>
+    <strong>Security deposit:</strong>
+    <%= tenant.security_deposit %>
+  </p>
+
+  <p>
+  <strong>Terms:</strong>
+  <ul>
+    <% tenant.terms.each do |term| %>
+      <li><%= term %></li>
+    <% end %>
+  </ul>
+  </p>
+
+  <p>
+    <strong>Property condition:</strong>
+    <%= tenant.property_condition %>
+  </p>
+
+  <p>
+  <strong>Utility Responsibilities:</strong>
+  <ul>
+    <% tenant.utility_responsibility.each do |utility| %>
+      <li><%= utility %></li>
+    <% end %>
+  </ul>
+  </p>
+
+</div>

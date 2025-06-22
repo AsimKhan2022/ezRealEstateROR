@@ -1,0 +1,148 @@
+<%= form_with(model: @sale, local: true) do |form| %>
+  <% if @sale.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sale.errors.count, "error") %> prohibited this sale from being saved:</h2>
+      <ul>
+        <% @sale.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :admin_id, style: "display: block" %>
+    <%= form.text_field :admin_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :lead_id %>
+    <% if @leads.present? %>
+        <%= form.collection_select :lead_id, @leads, :id, :title, prompt: "Select Lead" %>
+    <% else %>
+        <p> No leads available </p>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :buyer_id %>
+    <% if @buyers.present? %>
+        <%= form.collection_select :buyer_id, @buyers, :id, :name, prompt: "Select Buyer" %>
+    <% else %>
+        <p> No buyers available </p>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :seller_id %>
+    <% if @sellers.present? %>
+        <%= form.collection_select :seller_id, @sellers, :id, :name, prompt: "Select Seller" %>
+    <% else %>
+        <p> No sellers available </p>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :verified %>
+    <%= form.check_box :verified %>
+  </div>
+
+  <div class="field">
+    <%= form.label :mortgage_cleared %>
+    <%= form.check_box :mortgage_cleared %>
+  </div>
+
+  <div class="field">
+    <%= form.label :sale_date %>
+    <%= form.date_field :sale_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :sale_time %>
+    <%= form.time_field :sale_time %>
+  </div>
+
+  <div class="field">
+    <%= form.label :sale_price %>
+    <%= form.number_field :sale_price, step: 0.01 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :commission %>
+    <%= form.number_field :commission, step: 0.01 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :agent_commission %>
+    <%= form.number_field :agent_commission, step: 0.01 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :sales_agent_commission %>
+    <%= form.number_field :sales_agent_commission, step: 0.01 %>
+  </div>
+
+  <div class="field">
+  <%= form.label :clearance_certificate, style: "display: block" %>
+  <% if @sale.clearance_certificate.attached? %>
+    <p>Clearance Certificate:</p>
+    <ul>
+      <li>
+        <%= link_to @sale.clearance_certificate.filename.to_s, @sale.clearance_certificate %>
+        <%= check_box_tag "sale[clearance_certificate_ids_to_remove][]", @sale.clearance_certificate.id, false, id: "remove_certificate_#{@sale.clearance_certificate.id}" %>
+        <%= label_tag "remove_certificate_#{@sale.clearance_certificate.id}", "Remove" %>
+      </li>
+    </ul>
+  <% end %>
+  <%= form.file_field :clearance_certificate %> <!-- Allows file uploads -->
+</div>
+
+  <div class="field">
+  <%= form.label :transfer_paper, style: "display: block" %>
+  <% if @sale.transfer_paper.attached? %>
+    <p>Transfer Paper:</p>
+    <ul>
+      <li>
+        <%= link_to @sale.transfer_paper.filename.to_s, @sale.transfer_paper %>
+        <%= check_box_tag "sale[transfer_paper_ids_to_remove][]", @sale.transfer_paper.id, false, id: "remove_paper_#{@sale.transfer_paper.id}" %>
+        <%= label_tag "remove_paper_#{@sale.transfer_paper.id}", "Remove" %>
+      </li>
+    </ul>
+  <% end %>
+  <%= form.file_field :transfer_paper %> <!-- Allows file uploads -->
+</div>
+
+  <div class="field">
+  <%= form.label :sales_deed, style: "display: block" %>
+  <% if @sale.sales_deed.attached? %>
+    <p>Sales Deed:</p>
+    <ul>
+      <li>
+        <%= link_to @sale.sales_deed.filename.to_s, @sale.sales_deed %>
+        <%= check_box_tag "sale[sales_deed_ids_to_remove][]", @sale.sales_deed.id, false, id: "remove_deed_#{@sale.sales_deed.id}" %>
+        <%= label_tag "remove_deed_#{@sale.sales_deed.id}", "Remove" %>
+      </li>
+    </ul>
+  <% end %>
+  <%= form.file_field :sales_deed %> <!-- Allows file uploads -->
+</div>
+
+  <h2>Witnesses</h2>
+  <%= form.fields_for :witnesses do |witness_form| %>
+    <%= render 'witness_fields', f: witness_form %>
+  <% end %>
+  <%= link_to_add_association 'Add Witness', form, :witnesses, 'data-association-insertion-method' => 'before', 
+        'data-association-insertion-node' => '.nested-fields' %>
+  
+  <h2>Mortgages</h2>
+  <%= form.fields_for :mortgages do |mortgage_form| %>
+    <%= render 'mortgage_fields', f: mortgage_form %>
+  <% end %>
+  <%= link_to_add_association 'Add Mortgage', form, :mortgages, 'data-association-insertion-method' => 'before', 
+        'data-association-insertion-node' => '.nested-fields' %>
+
+  
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

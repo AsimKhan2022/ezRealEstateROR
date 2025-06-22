@@ -1,0 +1,29 @@
+<div class="nested-fields">
+        <div>
+            <%= f.label :buyer_id, style: "display: block" %>
+            <%= f.collection_select :buyer_id, @buyers, :id, :name, prompt: "Select Buyer" %>
+        </div>
+
+        <div>
+            <%= f.label :status, style: "display: block" %>
+            <%= f.select :status, Track.statuses.keys.map { |status| [status.humanize, status] } %>
+        </div>
+
+        <div>
+            <%= f.label :description, style: "display: block" %>
+            <%= f.text_area :description %>
+        </div>
+
+        <div>
+            <%= f.label :visit_date, style: "display: block" %>
+            <%= f.date_select :visit_date %>
+        </div>
+
+        <div>
+            <%= f.label :visit_time, style: "display: block" %>
+            <%= f.time_select :visit_time %>
+        </div>
+
+        <%= link_to_remove_association 'Remove Track', f %>
+    
+</div>

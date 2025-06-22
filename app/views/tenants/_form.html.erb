@@ -1,0 +1,135 @@
+<%= form_with(model: tenant, local: true) do |form| %>
+  <% if tenant.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(tenant.errors.count, "error") %> prohibited this tenant from being saved:</h2>
+
+      <ul>
+        <% tenant.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :lead_id %>
+    <%= form.collection_select :lead_id, @leads, :id, :title, prompt: "Select Lead" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :admin_id, style: "display: block" %>
+    <%= form.text_field :admin_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :move_in_date %>
+    <%= form.date_field :move_in_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :move_in_time %>
+    <%= form.time_field :move_in_time %>
+  </div>
+
+  <div class="field">
+    <%= form.label :move_out_date %>
+    <%= form.date_field :move_out_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :move_out_time %>
+    <%= form.time_field :move_out_time %>
+  </div>
+
+  <div class="field">
+    <%= form.label :rent_price %>
+    <%= form.number_field :rent_price, step: 0.01 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :commission %>
+    <%= form.number_field :commission, step: 0.01 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :down_payment %>
+    <%= form.number_field :down_payment, step: 0.01 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :security_deposit %>
+    <%= form.number_field :security_deposit, step: 0.01 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :terms, 'Terms' %><br>
+    <%= form.collection_select :terms, ['Term1', 'Term2', 'Term3'], :to_s, :to_s, {}, multiple: true, class: 'form-control' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :property_condition %>
+    <%= form.text_area :property_condition %>
+  </div>
+
+  <div class="field">
+  <%= form.label :utility_responsibility, "Utility Responsibility" %>
+  <%= select_tag 'tenant[utility_responsibility][]', options_for_select(["Electricity", "Water", "Gas", "Internet"], @tenant.utility_responsibility), multiple: true %>
+  </div>
+
+  <div class="field">
+  <%= form.label :legal_documents, style: "display: block" %>
+  <% if @tenant.legal_documents.attached? %>
+    <p>Current Legal Documents:</p>
+    <ul>
+      <% @tenant.legal_documents.each do |legal_document| %>
+        <li>
+          <%= link_to legal_document.filename, legal_document %>
+          <%= check_box_tag "tenant[legal_document_ids_to_remove][]", legal_document.id, false, id: "remove_document_#{legal_document.id}" %>
+          <%= label_tag "remove_document_#{legal_document.id}", "Remove" %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+  <%= form.file_field :legal_documents, multiple: true %> <!-- Allows file uploads -->
+</div>
+
+  <div class="field">
+  <%= form.label :tenant_documents, style: "display: block" %>
+  <% if @tenant.tenant_documents.attached? %>
+    <p>Current Tenant Documents:</p>
+    <ul>
+      <% @tenant.tenant_documents.each do |tenant_document| %>
+        <li>
+          <%= link_to tenant_document.filename, tenant_document %>
+          <%= check_box_tag "tenant[tenant_document_ids_to_remove][]", tenant_document.id, false, id: "remove_tenant_document_#{tenant_document.id}" %>
+          <%= label_tag "remove_tenant_document_#{tenant_document.id}", "Remove" %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+  <%= form.file_field :tenant_documents, multiple: true %> <!-- Allows file uploads -->
+</div>
+
+  <h2>Conditions</h2>
+  <%= form.fields_for :conditions do |condition_form| %>
+    <%= render 'condition_fields', f: condition_form %>
+  <% end %>
+  <%= link_to_add_association 'Add Condition', form, :conditions, 'data-association-insertion-method' => 'before', 
+        'data-association-insertion-node' => '.nested-fields' %>
+
+  <h2>Violations</h2>
+  <%= form.fields_for :violations do |violation_form| %>
+    <%= render 'violation_fields', f: violation_form %>
+  <% end %>
+  <%= link_to_add_association 'Add Violation', form, :violations, 'data-association-insertion-method' => 'before', 
+        'data-association-insertion-node' => '.nested-fields' %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

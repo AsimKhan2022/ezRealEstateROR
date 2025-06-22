@@ -1,0 +1,377 @@
+# encoding: utf-8
+
+<%= form_with(model: @property, local: true) do |form| %>
+  <% if property.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(property.errors.count, "error") %> prohibited this property from being saved:</h2>
+
+      <ul>
+        <% property.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="col">
+        <%= form.label :name, style: "display: block" %>
+        <%= form.text_field :name, class: "form-control", placeholder: "Owner's Name", "aria-label": "Owner's Name" %>
+    </div>
+    <div class="col">
+        <%= form.label :address, style: "display: block" %>
+        <%= form.text_field :address, class: "form-control", placeholder: "Property's Address", "aria-label": "Property's Address" %>    
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+        <%= form.label :street_number, style: "display: block" %>
+        <%= form.text_field :street_number, class: "form-control", placeholder: "Street Number", "aria-label": "Street Number" %>    
+    </div>
+    <div class="col">
+        <%= form.label :country, style: "display: block" %>
+        <%= form.select :country, options_for_select([['Select Country', '']]), {}, {class: "form-control", id: "country_select"} %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+        <%= form.label :state, style: "display: block" %>
+        <%= form.select :state, options_for_select([['Select State', '']]), {}, {class: "form-control", id: "state_select"} %>
+    </div>
+
+    <div class="col">
+        <%= form.label :city, style: "display: block" %>
+        <%= form.select :city, options_for_select([['Select City', '']]), {}, {class: "form-control", id: "city_select"} %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+        <%= form.label :society, style: "display: block" %>
+        <%= form.text_field :society, class: "form-control", placeholder: "Society", "aria-label": "Society" %>
+    </div>
+    <div class="col">
+        <%= form.label :sector, style: "display: block" %>
+        <%= form.text_field :sector, class: "form-control", placeholder: "Sector", "aria-label": "Sector" %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+        <%= form.label :phase, style: "display: block" %>
+        <%= form.text_field :phase, class: "form-control", placeholder: "Phase", "aria-label": "Phase" %>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <div class="col">
+        <%= form.label :property_type, style: "display: block" %>
+        <%= form.select :property_type, 
+            ['Single Family Home', 'Multi-family Home', 'Apartment', 'Condominium', 'Townhouse', 'Cooperative Apartment', 'Mobile Home', 'Office Building', 
+            'Retail Property', 'Industrial Property', 'Land', 'Hotel', 'Residential', 'Agricultural', 'Studio Apartment'], 
+            { prompt: 'Select Property Type', selected: @property.property_type }, 
+            class: "form-control", 
+        "aria-label": "Property Type" %>
+    </div>
+
+    <div class="col">
+        <%= form.label :listing_status, style: "display: block" %>
+        <%= form.select :listing_status, 
+            options_for_select(
+            ["Active", "Pending", "Under Contract", "Sold", "Leased", "Withdrawn", "Cancelled", "Expired", "Back on Market", "Coming Soon", "Off-Market", 
+            "Temporarily Off Market", "Short Sale", "Foreclosure", "Auction", "For Sale", "For Rent"], 
+            @property.listing_status
+            ), 
+        { class: "form-control", "aria-label": "Listing Status" } %>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col">
+        <%= form.label :square_footage, style: "display: block" %>
+        <%= form.number_field :square_footage, class: "form-control", placeholder: "Square Footage", "aria-label": "Square Footage" %>
+    </div>
+    <div class="col">
+        <%= form.label :footage_unit %>
+        <%= form.select :footage_unit, options_for_select([['Acres', 'acres'], ['Kanals', 'kanals'], ['Square Feet', 'sq_ft'], ['Square Meters', 'sq_m'], 
+                        ['Marla', 'marla'], ['Square Yards', 'sq_yd'], ['Hectares', 'hectares']], @property.footage_unit), include_blank: true %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+        <%= form.label :number_of_bedrooms, style: "display: block" %>
+        <%= form.number_field :number_of_bedrooms, class: "form-control", placeholder: "No. of Bedrooms", "aria-label": "No. of Bedrooms" %>
+    </div>
+    <div class="col">
+        <%= form.label :number_of_bathrooms, style: "display: block" %>
+        <%= form.number_field :number_of_bathrooms, class: "form-control", placeholder: "No. of Bathrooms", "aria-label": "No. of Bathrooms" %>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <div class="col">
+        <%= form.label :year_built, style: "display: block" %>
+        <%= form.number_field :year_built, class: "form-control", placeholder: "Year Built", "aria-label": "Year_Built" %>
+    </div>
+    <div class="col">
+        <%= form.label :asking_price, style: "display: block" %>
+        <%= form.number_field :asking_price, class: "form-control", placeholder: "Asking Price", "aria-label": "Asking Price" %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+        <%= form.label :currency, style: "display: block" %>
+        <%= form.select :currency, options_for_select([['USD', 'usd'], ['Pakistani Rupees', 'pak_rs'], ['Saudi Riyal', 'saudi_riyal']], 
+                        @property.currency), include_blank: true %>
+    </div>
+    <div class="col">
+        <%= form.label :is_verified, style: "display: block" do %>
+        <%= form.check_box :is_verified %>
+            Is Verified
+        <% end %>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col">
+        <%= form.label :investigator_id, style: "display: block"%>
+        <%= form.collection_select :investigator_id, User.where(role: :investigator), :id, :name, include_blank: true %>
+    </div>
+  </div>
+  
+  <hr>
+
+  <div class="row">
+    <div class="col">
+		<%= form.label :documents, style: "display: block" %>
+		<%= form.file_field :documents, multiple: true %>
+
+        <% if @property.documents.attached? %>
+            <h5>Existing Documents</h5>
+            <ul>
+                <% @property.documents.each do |document| %>
+                    <li>
+                        <%= link_to document.filename.to_s, rails_blob_path(document, disposition: "attachment") %> 
+                        (<%= number_to_human_size(document.byte_size) %>)
+                        <%= check_box_tag "remove_documents[]", document.id, false %>
+                        <%= label_tag "remove_documents_#{document.id}", "Remove" %>
+                    </li>
+                <% end %>
+            </ul>
+        <% end %>
+	</div>
+    <div class="col">
+        <%= form.label :main_image, style: "display: block" %>
+	    <%= form.file_field :main_image %>
+
+        <!-- Display the existing image if it's attached -->
+        <% if @property.main_image.attached? %>
+            <div class="existing-image">
+                <%= image_tag @property.main_image, alt: "Main Image", class: "img-thumbnail" %>
+            </div>
+            <%= check_box_tag "remove_main_image", "true", false %>
+            <%= label_tag "remove_main_image", "Remove Main Image" %>
+        <% end %>
+    </div>
+  </div>
+    
+  <div class="row">
+    <div class="col">
+		<%= form.label :images, style: "display: block" %>
+		<%= form.file_field :images, multiple: true %>
+
+        <% if @property.images.attached? %>
+			<h5>Existing Images</h5>
+			<ul>
+				<% @property.images.each do |image| %>
+					<li>
+						<%= image_tag image.variant(resize_to_limit: [100, 100]), alt: "Image", class: "img-thumbnail" %>
+                        <%= check_box_tag "remove_images[]", image.id, false %>
+                        <%= label_tag "remove_images_#{image.id}", "Remove" %>
+					</li>
+				<% end %>
+			</ul>
+		<% end %>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <div class="col">
+        <h2>Amenities</h2>
+        <div class="amenities-container">
+            <div class="horizontal-fields">
+                <%= form.fields_for :amenities do |amenity_form| %>
+                <div class="amenity-item">
+                    <%= render 'amenity_fields', f: amenity_form %>
+                </div>
+            <% end %>
+        </div>      
+    </div>
+    <div class="col">
+        <div class="add-amenity">
+            <%= link_to_add_association 'Add Amenity', form, :amenities, class: 'btn btn-primary', 'data-association-insertion-method' => 'before', 
+                'data-association-insertion-node' => '.nested-fields' %>
+        </div>    
+    </div>
+  </div>
+  
+  <hr>  
+
+  <div class="row">
+    <div class="col">
+        <%= form.label :latitude %>
+        <%= form.hidden_field :latitude, id: 'latitude', value: @property.latitude || 37.7749 %>
+    </div>
+    <div class="col">
+        <%= form.label :longitude %>
+        <%= form.hidden_field :longitude, id: 'longitude', value: @property.longitude || -122.4194 %>
+    </div>  
+  </div>
+
+  <div id="map" data-latitude="<%= @property.latitude || 37.7749 %>" data-longitude="<%= @property.longitude || -122.4194 %>" style="width: 800px; height: 400px;"></div>
+    <%= form.label :admin_id, style: "display: block" %>
+    <%= form.text_field :admin_id %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function() {
+    var mapElement = document.getElementById('map');
+    var latitude = parseFloat(mapElement.dataset.latitude) || 37.7749; // Default latitude
+    var longitude = parseFloat(mapElement.dataset.longitude) || -122.4194; // Default longitude
+
+    var map = L.map('map').setView([latitude, longitude], 13);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: 'OpenStreetMap'
+    }).addTo(map);
+
+    var marker = L.marker([latitude, longitude], {draggable: true}).addTo(map)
+      .bindPopup('<%= j @property.name %>')
+      .openPopup();
+
+    marker.on('dragend', function(event) {
+      var lat = marker.getLatLng().lat;
+      var lng = marker.getLatLng().lng;
+      document.getElementById('latitude').value = lat;
+      document.getElementById('longitude').value = lng;
+    });
+
+    map.on('click', function(event) {
+      var lat = event.latlng.lat;
+      var lng = event.latlng.lng;
+      marker.setLatLng([lat, lng]);
+      document.getElementById('latitude').value = lat;
+      document.getElementById('longitude').value = lng;
+    });
+
+    // Submit the form when the user clicks a submit button
+    var submitButtons = document.querySelectorAll('input[type="submit"], button[type="submit"]');
+    submitButtons.forEach(function(button) {
+      button.addEventListener('click', function() {
+        var form = document.querySelector('form'); // Assuming there's only one form
+        form.submit();
+      });
+    });
+  });
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const apiKey = "<%= Rails.application.credentials.universal_tutorial_api_key %>"; // Fetch API key from Rails credentials
+
+    // Set headers for the API request
+    const headers = {
+      "Authorization": `Bearer ${apiKey}`,
+      "Accept": "application/json"
+    };
+
+    // Function to fetch and populate countries
+    function fetchCountries() {
+      fetch("https://www.universal-tutorial.com/api/countries", { headers })
+        .then(response => response.json())
+        .then(data => {
+          const countrySelect = document.getElementById("country_select");
+          countrySelect.innerHTML = '<option value="">Select Country</option>';
+          data.forEach(country => {
+            const option = document.createElement("option");
+            option.value = country.country_name;
+            option.textContent = country.country_name;
+            countrySelect.appendChild(option);
+          });
+        });
+    }
+
+    // Function to fetch and populate states based on selected country
+    function fetchStates(countryName) {
+      fetch(`https://www.universal-tutorial.com/api/states/${countryName}`, { headers })
+        .then(response => response.json())
+        .then(data => {
+          const stateSelect = document.getElementById("state_select");
+          stateSelect.innerHTML = '<option value="">Select State</option>';
+          data.forEach(state => {
+            const option = document.createElement("option");
+            option.value = state.state_name;
+            option.textContent = state.state_name;
+            stateSelect.appendChild(option);
+          });
+        });
+    }
+
+    // Function to fetch and populate cities based on selected state
+    function fetchCities(stateName) {
+      fetch(`https://www.universal-tutorial.com/api/cities/${stateName}`, { headers })
+        .then(response => response.json())
+        .then(data => {
+          const citySelect = document.getElementById("city_select");
+          citySelect.innerHTML = '<option value="">Select City</option>';
+          data.forEach(city => {
+            const option = document.createElement("option");
+            option.value = city.city_name;
+            option.textContent = city.city_name;
+            citySelect.appendChild(option);
+          });
+        });
+    }
+
+    // Fetch countries on page load
+    fetchCountries();
+
+    // Event listener for country change
+    document.getElementById("country_select").addEventListener("change", function() {
+      const selectedCountry = this.value;
+      if (selectedCountry) {
+        fetchStates(selectedCountry); // Fetch states for selected country
+      } else {
+        document.getElementById("state_select").innerHTML = '<option value="">Select State</option>';
+        document.getElementById("city_select").innerHTML = '<option value="">Select City</option>';
+      }
+    });
+
+    // Event listener for state change
+    document.getElementById("state_select").addEventListener("change", function() {
+      const selectedState = this.value;
+      if (selectedState) {
+        fetchCities(selectedState); // Fetch cities for selected state
+      } else {
+        document.getElementById("city_select").innerHTML = '<option value="">Select City</option>';
+      }
+    });
+  });
+</script>
