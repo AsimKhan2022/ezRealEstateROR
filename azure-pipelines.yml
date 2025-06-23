@@ -1,0 +1,123 @@
+# Ruby
+# Package your Ruby project.
+# Add steps that install rails, analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/ruby
+
+trigger:
+- development
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: UseRubyVersion@0
+  inputs:
+    versionSpec: '3.3.8'
+    addToPath: true
+- task: UseDotNet@2
+  inputs:
+      packageType: 'sdk'
+      version: '7.x'
+      installationPath: $(Agent.ToolDirectory)/dotnet
+
+- script: |
+    sudo apt-get update
+    
+    # Install PostgreSQL development headers for the pg gem 
+    sudo apt-get install -y libpq-dev
+    
+    # Install Bundler and Gems 
+    gem install bundler -v 2.5.16
+    bundle clean --force
+    bundle install --retry=3 --jobs=4
+
+    # Verify PG Gem Installation 
+    gem list pg
+  displayName: 'Install Ruby, Bundler, and Gems'
+
+- script: |
+    sudo apt-get update
+    sudo apt-get install -y gnupg software-properties-common
+    curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+    echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+    sudo apt-get update
+    sudo apt-get install -y terraform
+  displayName: 'Install Terraform'
+
+- script: |
+    # Update Package List
+    sudo apt update 
+
+    # Install Mono
+    sudo apt install -y gnupg ca-certificates
+    wget https://download.mono-project.com/repo/xamarin.gpg
+    sudo apt-key add xamarin.gpg
+    sudo apt-add-repository 'deb https://download.mono-project.com/repo/ubuntu stable-focal main'
+    sudo apt update
+    sudo apt install -y mono-complete
+
+    # Install Terraform
+    curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+    echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+    sudo apt-get update
+    sudo apt-get install -y terraform
+
+    # Install .NET SDK
+    wget https://dot.net/v1/dotnet-install.sh
+    chmod +x dotnet-install.sh
+    ./dotnet-install.sh --version 7.0.410
+
+    # Add .NET to PATH
+    export PATH=$PATH:/home/vsts/.dotnet
+    dotnet --version
+  displayName: 'Install Dependencies'
+
+- script: |
+    mono --version
+    terraform --version
+    dotnet --version
+  displayName: 'Verify Installed Versions'
+
+- script: |
+    #Now that the tools are installed, you can proceed with your tasks
+    mono --version
+    dotnet --version
+    terraform --version 
+    
+  displayName: 'Check installed tools'
+
+- script: ruby --version
+  displayName: 'Verify Ruby Version'
+
+- script: |
+    bundle env
+    gem env
+  displayName: 'Debug Environment Variables'
+
+- script: |
+    echo "Current directory:"
+    pwd
+    echo "Listing files:"
+    ls -la
+    echo "Checking Gemfile:"
+    cat Gemfile
+    echo "Running bundle install:"
+    bundle install --retry=3 --jobs=4
+    echo "Listing installed gems:"
+    gem list
+  displayName: 'Debug and Install Gems'
+
+- script: |
+    bundle exec rake --tasks
+  displayName: 'Run bundle exec rake with tasks'
+
+- task: PublishTestResults@2
+  condition: succeededOrFailed()
+  inputs:
+    testResultsFiles: '**/test-*.xml'
+    testRunTitle: 'Ruby tests'
+
+#- task: PublishCodeCoverageResults@2
+#  inputs:
+#    summaryFileLocation: '$(System.DefaultWorkingDirectory)/TestResults/codecoverage.xml'
+#    failIfCoverageEmpty: true
